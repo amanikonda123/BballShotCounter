@@ -6,7 +6,7 @@ from collections import deque
 from helper import is_increasing_distances, is_ball_below_rim, is_ball_above_rim, is_made_shot, write_text_with_background, get_available_filename
 
 # Load Video
-video_path = 'input_vids/vid29.mp4'
+video_path = 'input_vids/IMG_6448.mov'
 cap = cv2.VideoCapture(video_path)
 
 # Stuff for output video
@@ -84,8 +84,10 @@ while True:
 
     # Checks if distance from shoot position and ball keeps increasing after shot attempt
     # Checks if last time "shoot" was detected was five frames ago
-    if shoot_position and shoot_position[-1][2] == frame - 5:
-        last_ball_pos = [(cx, cy) for cx, cy, frame in list(ball_position)[-5:]]
+    print(shoot_position)
+    if shoot_position and shoot_position[-1][2] == frame - 3:
+        last_ball_pos = [(cx, cy) for cx, cy, frame in list(ball_position)[-3:]]
+        print("HHIIIIIIJIHIHIHIHIHI")
         if is_increasing_distances((shoot_position[-1][0], shoot_position[-1][1]), last_ball_pos):
             total_attempts += 1
 
@@ -108,7 +110,7 @@ while True:
         overlay = np.zeros_like(img, dtype=np.uint8)
 
     # Draws a path for the balls
-    if frame % 5 == 0:
+    if frame % 3 == 0:
         # Clear the overlay (reset to transparent)
         overlay = np.zeros_like(img, dtype=np.uint8)
         
